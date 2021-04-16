@@ -3,7 +3,7 @@ Jacobo Soffer Levy
 A01028653
 Definition of the Records
 class methods.
-Modified: 19/03/21
+Modified: 13/04/21
 */
 #include "records.h"
 #include "invalid_date.h"

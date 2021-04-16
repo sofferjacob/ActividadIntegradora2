@@ -1,3 +1,11 @@
+/*
+Jacobo Soffer Levy
+A01028653
+File used to test the
+linked list implementation.
+Not included in binary
+Modified: 13/04/21
+*/
 #include "linked_list.h"
 #include <iostream>
 

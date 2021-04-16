@@ -1,3 +1,11 @@
+/*
+Jacobo Soffer Levy
+A01028653
+Queue linear data structure
+implementation.
+Modified: 13/04/21
+*/
+
 #ifndef QUEUE_H
 #define QUEUE_H
 #include "linked_list.h"

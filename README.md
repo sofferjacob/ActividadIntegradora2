@@ -8,7 +8,7 @@ Por conveniencia, en sistemas UNIX o Linux el siguiente script puede ser ejecuta
 $ ./build.sh
 ```
 Este script genera un ejecutable llamado `main` en el directorio donde es ejecutado.
-Para Windows o para compilar manualmente, basta con llamar el compilador de preferencia y pasarle los archivos que se encuentran en el directorio `src` con extensión `.cpp`. No son necesarios argumentos o flags adicionales. En caso de moverse al directorio `src` al momento de compilación, es recomendable mover el ejecutable resultante al directorio principal para una ejecución más sencilla.
+Para Windows o para compilar manualmente, basta con llamar el compilador de preferencia y pasarle los archivos que se encuentran en el directorio `src` con extensión `.cpp`. Compilar unicamente con el siguiente flag: `-std=c++17`. En caso de moverse al directorio `src` al momento de compilación, es recomendable mover el ejecutable resultante al directorio principal para una ejecución más sencilla.
 
 ## Ejecución
 Para ejecutar sólo llame el ejecutable resultante por el proceso de compilación:

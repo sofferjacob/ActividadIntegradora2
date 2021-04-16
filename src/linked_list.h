@@ -1,3 +1,11 @@
+/*
+Jacobo Soffer Levy
+A01028653
+Doubly Linked List
+implementation.
+Used to store the records
+Modified: 13/04/21
+*/
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
@@ -14,24 +22,38 @@ class LinkedList {
 public:
     LinkedList();
     ~LinkedList();
+    // Returns the size of the list
     int getSize();
+    // Deletes the list's elements and resets it.
     void clear();
+    // Adds an element to the begging of the list
     void addFirst(T);
-    void addNode(Node<T>*);
+    // Adds an element to the end of the list
     void pushBack(T);
+    // Deletes an element at the specified index
     bool deleteAt(int);
+    // Updates an element at the specified index
     void updateAt(T, int);
+    // Prints the entire list
     void print(int, int);
+    // Sorts the list (in place) using Merge Sort
     void sort();
+    // Performs an operation on the node at the specified index
     void opAt(std::function<void(Node<T>*)>, int);
+    // Executes a function on every node of the list (or on every node starting from the 'from' parameter)
     void forEach(std::function<void(Node<T>*, int)> f, int from = 0);
-    LinkedList<T> sublist(int from = 0, int to = -1);
+    // Retrieves a node from the list. Returns the node at the specified index.
     Node<T>* at(int);
+    // same as at
     Node<T>* operator[](int);
 private:
+    // Pounter to the first node on the list
     Node<T>* head;
+    // Pointer to the last node on the list
     Node<T>* tail;
+    // Size of the list
     int size;
+    // Auziliary method used in sort()
     Node<T>* merge(Node<T>*, Node<T>*);
 };
 
@@ -71,21 +93,6 @@ void LinkedList<T>::addFirst(T data) {
     Node<T>* node = new Node<T>(data, nullptr, head);
     head->setPrev(node);
     head = node;
-    size++;
-}
-
-template<class T>
-// Risky OP. Should only be used for sorting
-void LinkedList<T>::addNode(Node<T>* node) {
-    if (head == nullptr) {
-        head = node;
-        tail = head;
-        node->setPrev(nullptr);
-        node->setNext(nullptr);
-        size++;
-        return;
-    }
-    tail->setNext(node);
     size++;
 }
 
@@ -197,19 +204,6 @@ bool LinkedList<T>::deleteAt(int i) {
         delete e;
         }, i);
     return true;
-}
-
-template<class T>
-LinkedList<T> LinkedList<T>::sublist(int from, int to) {
-    // These lists will share nodes with the base list, it is just
-    // a method for convenience. Therefore, DO NOT delete nodes from
-    // the base list/sublist when the method is used.
-    LinkedList<T> newList;
-    int upper = to == -1 ? size - 1 : to;
-    newList.head = at(from);
-    newList.tail = at(upper);
-    newList.size = upper - from;  // Maybe +1 here
-    return newList;
 }
 
 template<class T>
@@ -338,9 +332,12 @@ template<class T>
 class Queue {
 public:
     Queue();
+    // Adds an element to the queue
     void push(T data);
+    // Removes an element from the queue
     T poll();
     bool isEmpty();
+    // Returns the size of the queue
     int size();
 private:
     LinkedList<T> queue;
