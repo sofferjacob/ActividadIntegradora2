@@ -34,14 +34,17 @@ int main() {
       cout << "To: " << to.getDateString() << endl;
       try {
         registry.find(from, to);
-      } catch (InvalidDate e) {
+      }
+      catch (InvalidDate e) {
         cout << "An error occured: " << e.what() << endl;
       }
       cout << "======================" << endl;
     }
-  } catch(invalid_argument e) {
+  }
+  catch (invalid_argument e) {
     cout << "File 'bitacora.txt' not found. Terminating program" << endl;
-  } catch(...) {
+  }
+  catch (...) {
     cout << "Sorry, an unknown error occured. Terminating program" << endl;
   }
 }

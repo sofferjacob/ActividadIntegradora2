@@ -5,9 +5,14 @@ using namespace std;
 
 int main() {
     LinkedList<int> list;
-    for (int i = 10; i >= 0; i--) {
-        list.pushBack(i);
-    }
+    list.pushBack(48);
+    list.pushBack(5);
+    list.pushBack(60);
+    list.pushBack(16);
+    list.pushBack(15);
+    list.pushBack(15);
+    list.pushBack(1);
+    list.pushBack(100);
     cout << "Size: " << list.getSize() << endl;
     list.print(0, list.getSize() - 1);
     list.sort();

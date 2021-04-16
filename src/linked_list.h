@@ -214,76 +214,62 @@ LinkedList<T> LinkedList<T>::sublist(int from, int to) {
 
 template<class T>
 Node<T>* LinkedList<T>::merge(Node<T>* l1, Node<T>* l2) {
-    std::cout << "== MERGE CALL ==" << std::endl;
-    if (l1 != nullptr) {
-        std::cout << "l1: " << l1->getData() << std::endl;
-    }
-    if (l2 != nullptr) {
-        std::cout << "l2: " << l2->getData() << std::endl;
-    }
-    Node<T>* result = nullptr;
+    // Doubly Linked list simulation
+    Node<T>* head = nullptr;
+    Node<T>* tail = nullptr;
     while (l1 != nullptr && l2 != nullptr) {
-        if (l1->getData() > l2->getData()) {
-            std::cout << "Adding " << l2->getData() << " to list" << std::endl;
+        T l1Data = l1->getData();
+        T l2Data = l2->getData();
+        if ((l1Data) > (l2Data)) {
+            // Move it to a tmp variable
             Node<T>* tmp = l2;
             l2 = l2->getNext();
             tmp->setNext(nullptr);
-            if (result == nullptr) {
-                result = tmp;
+            if (head == nullptr) {
                 tmp->setPrev(nullptr);
+                head = tmp;
+                tail = tmp;
             }
             else {
-                tmp->setPrev(result);
-                result->setNext(tmp);
-                // result = tmp;
+                tmp->setPrev(tail);
+                tail->setNext(tmp);
+                tail = tmp;
             }
         }
         else {
-            std::cout << "Adding " << l1->getData() << " to list" << std::endl;
+            // Move it to a tmp variable
             Node<T>* tmp = l1;
             l1 = l1->getNext();
             tmp->setNext(nullptr);
-            if (result == nullptr) {
+            if (head == nullptr) {
                 tmp->setPrev(nullptr);
-                result = tmp;
+                head = tmp;
+                tail = tmp;
             }
             else {
-                tmp->setPrev(result);
-                result->setNext(tmp);
-                // result = tmp;
+                tmp->setPrev(tail);
+                tail->setNext(tmp);
+                tail = tmp;
             }
         }
     }
     while (l1 != nullptr) {
-        std::cout << "Adding " << l1->getData() << " to list" << std::endl;
         Node<T>* tmp = l1;
         l1 = l1->getNext();
-        tmp->setPrev(result);
         tmp->setNext(nullptr);
-        result->setNext(tmp);
-        // result = tmp;
+        tmp->setPrev(tail);
+        tail->setNext(tmp);
+        tail = tmp;
     }
     while (l2 != nullptr) {
-        std::cout << "Adding " << l2->getData() << " to list" << std::endl;
         Node<T>* tmp = l2;
         l2 = l2->getNext();
-        tmp->setPrev(result);
         tmp->setNext(nullptr);
-        result->setNext(tmp);
-        // result = tmp;
+        tmp->setPrev(tail);
+        tail->setNext(tmp);
+        tail = tmp;
     }
-    std::cout << "== MERGE CALL CONT. ==" << std::endl;
-    Node<T>* temp = result;
-    while (temp != nullptr) {
-        if (temp == nullptr) {
-            std::cout << "breaking on null" << std::endl;
-            break;
-        }
-        std::cout << temp->getData() << std::endl;
-        temp = temp->getPrev();
-    }
-    std::cout << "== END CALL ==" << std::endl;
-    return result;
+    return head;
 }
 
 template<class T>
@@ -299,36 +285,27 @@ void LinkedList<T>::sort() {
         nodes.push(e);
         //std::cout << "Nodes size: " << nodes.size() << std::endl;
         });
-    std::cout << "Nodes size: " << nodes.size() << std::endl;
     while (!nodes.isEmpty()) {
         Node<T>* e = nodes.poll();
         e->setNext(nullptr);
         e->setPrev(nullptr);
         queue.push(e);
     }
-    std::cout << "done with first wh" << std::endl;
     while (queue.size() > 1) {
         Node<T>* l1 = queue.poll();
         Node<T>* l2 = queue.poll();
         Node<T>* res = merge(l1, l2);
         if (res == nullptr) continue;
         queue.push(res);
-        std::cout << "Queue size: " << queue.size() << std::endl;
     }
-    std::cout << "done whiling" << std::endl;
     // Set the new head and tail
     Node<T>* newHead = queue.poll();
     this->head = newHead;
-    Node<T>* next = head->getNext();
-    std::cout << "next node: " << next->getData() << std::endl;
     Node<T>* newTail = head;
     while (newTail->getNext() != nullptr) {
-        std::cout << "iter" << std::endl;
         newTail = newTail->getNext();
     }
     this->tail = newTail;
-    std::cout << "New head: " << head->getData() << std::endl;
-    std::cout << "New tail: " << tail->getData() << std::endl;
 }
 
 template<class T>

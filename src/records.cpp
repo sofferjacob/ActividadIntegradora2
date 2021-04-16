@@ -24,10 +24,9 @@ Records::Records(string filename) {
   }
   file.close();
   auto startTime = chrono::high_resolution_clock::now();
-  int comps = sort(0, records.getSize() - 1);
+  records.sort();
   auto endTime = chrono::high_resolution_clock::now();
   auto totalTime = endTime - startTime;
-  cout << "Sorting comparisons: " << comps << endl;
   cout << "Sorting Time: " << totalTime / chrono::milliseconds(1) << " ms." << endl;
   cout << "Records in registry: " << records.getSize() << endl;
   ofstream orderedFile("bitacora_ordenada.txt");
@@ -35,39 +34,6 @@ Records::Records(string filename) {
     orderedFile << (records[i]->getData().getEntry()) << endl;
   }
   orderedFile.close();
-}
-
-int Records::sort(int low, int high) {
-  if (low >= high) return 0;
-  int partRes[2] = { -1, -1 };
-  partition(low, high, partRes);
-  // [low...pi-1]
-  int c1 = sort(low, partRes[0] - 1);
-  // [pi+1...high]
-  int c2 = sort(partRes[0] + 1, high);
-  return partRes[1] + c1 + c2;
-}
-
-void Records::partition(int low, int high, int res[2]) {
-  int comps = 0;
-  Record pivot = records[high]->getData();
-  int i = (low - 1);
-
-  for (int j = low; j <= high - 1; j++) {
-    comps++;
-    // If current element is smaller than the pivot 
-    if (records[j]->getData() < pivot) {
-      i++; // increment index of smaller element
-      Record tmp = records[i]->getData();
-      *records[i] = records[j]->getData();
-      *records[j] = tmp;
-    }
-  }
-  Record temp = records[high]->getData();
-  *records[high] = records[i + 1]->getData();
-  *records[i + 1] = temp;
-  res[0] = i + 1;
-  res[1] = comps;
 }
 
 int Records::search(DateTime target) {
