@@ -3,7 +3,7 @@ Jacobo Soffer Levy
 A01028653
 Definition of the Records
 class methods.
-Modified: 13/04/21
+Modified: 23/05/21
 */
 #include "records.h"
 #include "invalid_date.h"
@@ -65,7 +65,15 @@ void Records::find(DateTime from, DateTime to) {
   if (r == -1) {
     throw InvalidDate("End date not found on registry");
   }
+  ofstream resultsFile("search_results.txt");
+  resultsFile << "=== SEARCH RESULTS ===" << endl;
+  resultsFile << "From: " << from.getDateString() << endl;
+  resultsFile << "To: " << to.getDateString() << endl;
   for (; l <= r; l++) {
-    cout << (records[l]->getData().getEntry()) << endl;
+    string entry = records[l]->getData().getEntry();
+    cout << entry << endl;
+    resultsFile << entry << endl;
   }
+  resultsFile << "======================";
+  resultsFile.close();
 }

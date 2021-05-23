@@ -42,6 +42,10 @@ public:
     void opAt(std::function<void(Node<T>*)>, int);
     // Executes a function on every node of the list (or on every node starting from the 'from' parameter)
     void forEach(std::function<void(Node<T>*, int)> f, int from = 0);
+    // Returns the first node in the list
+    Node<T>* getFirst();
+    // Returns the last node in the list
+    Node<T>* getLast();
     // Retrieves a node from the list. Returns the node at the specified index.
     Node<T>* at(int);
     // same as at
@@ -168,6 +172,16 @@ Node<T>* LinkedList<T>::at(int i) {
         result = result->getPrev();
     }
     return result;
+}
+
+template<class T>
+Node<T>* LinkedList<T>::getFirst() {
+    return head;
+}
+
+template<class T>
+Node<T>* LinkedList<T>::getLast() {
+    return tail;
 }
 
 template<class T>
