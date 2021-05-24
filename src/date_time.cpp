@@ -28,6 +28,9 @@ const unordered_map<string, int> DateTime::months = {
 };
 
 DateTime::DateTime(string from) : dateString(from) {
+  time_t rawtime;
+  time(&rawtime);
+  dateStruct = *(localtime(&rawtime));
   // Validate the date is valid with a regex
   if (from.length() != 15 || !regex_match(from, regex("([A-Z][a-zA-Z]{2}\\s[0-3]\\d\\s[0-2]\\d:[0-5]\\d:[0-5]\\d)"))) {
     throw InvalidDate("Invalid date");
@@ -69,19 +72,19 @@ string DateTime::getDateString() {
   return dateString;
 }
 
-bool DateTime::operator==(const DateTime &other) {
+bool DateTime::operator==(const DateTime& other) {
   return this->date == other.date;
 }
 
-bool DateTime::operator!=(const DateTime &other) {
+bool DateTime::operator!=(const DateTime& other) {
   return this->date != other.date;
 }
 
-bool DateTime::operator>(const DateTime &other) {
+bool DateTime::operator>(const DateTime& other) {
   return this->date > other.date;
 }
 
-bool DateTime::operator<(const DateTime &other) {
+bool DateTime::operator<(const DateTime& other) {
   return this->date < other.date;
 }
 
